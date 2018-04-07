@@ -1,0 +1,42 @@
+#! /usr/bin/python3
+from server import app, socketio
+import sys
+
+if __name__ == '__main__':
+    host = "localhost"
+    port = 3000
+    debug = False
+    i = sys.argv
+    n = 0
+    while n < len(i):
+        if not i[n][0] == '-':
+            n += 1
+            continue
+        if 'help' in i[n]:
+            print("Usage: python run_server.py [OPTION]\n\n" \
+                  "Options:\n" \
+                  "    -h --host HOST         host (default localhost)\n" \
+                  "    -p --port PORT         port (default 3000)\n" \
+                  "    -d --debug             flask debug mode\n" \
+                  "    --help                 help\n")
+            sys.exit(0)
+        if 'h' in i[n]:
+            n += 1
+            if i[n][0] == '-':
+                print("Please input host name after -h --host")
+                sys.exit(1)
+            host = i[n]
+            n += 1
+            continue
+        if 'p' in i[n]:
+            n += 1
+            if i[n][0] == '-':
+                print("Please input port number after -p --port")
+                sys.exit(1)
+            port= int(i[n])
+            n += 1
+            continue
+        if 'd' in i[n]:
+            debug = True
+            n += 1
+    socketio.run(app, host=host, port=port)

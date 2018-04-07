@@ -1,0 +1,7 @@
+#! /usr/bin/python3
+from server import db
+
+if __name__ == '__main__':
+    print('init database from ./data')
+    db.init_from_tree_files()
+    print('init database complete.')
